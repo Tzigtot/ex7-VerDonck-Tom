@@ -12,23 +12,41 @@ and open the template in the editor.
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script>
             var settings = {
-  "async": true,
-  "crossDomain": true,
-  "url": "https://web-ims.thomasmore.be/datadistribution/API/2.0/drones?format=json",
-  "method": "GET",
-  "headers": {
-    "authorization": "Basic aW1zOno1MTJtVDRKeVgwUExXZw==",
-    "cache-control": "no-cache",
-    "postman-token": "335fe2b9-d4dd-3231-ad20-e5eb2fc1b930"
-  }
-}
+                "async": true,
+                "crossDomain": true,
+                "url": "https://web-ims.thomasmore.be/datadistribution/API/2.0/drones?format=json",
+                "method": "GET",
+                "headers": {
+                    "authorization": "Basic aW1zOno1MTJtVDRKeVgwUExXZw==",
+                    "cache-control": "no-cache",
+                    "postman-token": "335fe2b9-d4dd-3231-ad20-e5eb2fc1b930"
+                }
+            };
 
-$.ajax(settings).done(function (response) {
-  console.log(response);
-});
+            $.ajax(settings).done(function (response) {
+                for (var x = 0; x < response.length; x++) {
+                    settings.url = response[x]['url'];
+                    $.ajax(settings).done(function (drone_information) {
+                        settings.url = 'https://web-ims.thomasmore.be/datadistribution/API/2.0/files?drone_id.is=' + drone_information['id'] + '&format=json';
+                        $("#information").append('<tr>' +
+                                '<td>' + drone_information.name + '</td>' +
+                                '<td>' + drone_information.mac_address + '</td>');
+                    });
+                }
+                ;
+            });
+
+
         </script>
     </head>
     <body>
-        <div></div>
+        <div>
+            <table id="information">
+                <tr>
+                    <th>Name</th>
+                    <th>MAC Address</th>
+                </tr>
+            </table>
+        </div>
     </body>
 </html>
