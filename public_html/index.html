@@ -6,11 +6,29 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Basic Drone Information</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+            var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://web-ims.thomasmore.be/datadistribution/API/2.0/drones?format=json",
+  "method": "GET",
+  "headers": {
+    "authorization": "Basic aW1zOno1MTJtVDRKeVgwUExXZw==",
+    "cache-control": "no-cache",
+    "postman-token": "335fe2b9-d4dd-3231-ad20-e5eb2fc1b930"
+  }
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+        </script>
     </head>
     <body>
-        <div>TODO write content</div>
+        <div></div>
     </body>
 </html>
