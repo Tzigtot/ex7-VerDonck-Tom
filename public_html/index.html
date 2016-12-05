@@ -9,8 +9,9 @@ and open the template in the editor.
         <title>Basic Drone Information</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
         <script>
+            $(document).ready(function(){
             var settings = {
                 "async": true,
                 "crossDomain": true,
@@ -32,6 +33,7 @@ and open the template in the editor.
                             for (var y = 0; y < response_2.length; y++) {
                                 settings.url = 'https://web-ims.thomasmore.be/datadistribution/API/2.0/files/' + response_2[y]['id'] + '?format=json';
                                 $.ajax(settings).done(function (file_information) {
+                                    console.log(settings);
                                     $("#information").append('<tr>' +
                                             '<td>' + drone_information.name + '</td>' +
                                             '<td>' + drone_information.mac_address + '</td>' +
@@ -46,7 +48,7 @@ and open the template in the editor.
                 }
                 ;
             });
-
+            });
 
         </script>
     </head>
