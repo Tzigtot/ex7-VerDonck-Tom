@@ -30,11 +30,15 @@ and open the template in the editor.
                         settings.url = 'https://web-ims.thomasmore.be/datadistribution/API/2.0/files?drone_id.is=' + drone_information['id'] + '&format=json';
                         $.ajax(settings).done(function (response_2) {
                             for (var y = 0; y < response_2.length; y++) {
-                                console.log(response_2);
-                                settings.url = 'https://web-ims.thomasmore.be/datadistribution/API/2.0/files/' + response_2[y]['url'] + '?format=json';
-                                /*$("#information").append('<tr>' +
-                                        '<td>' + drone_information.name + '</td>' +
-                                        '<td>' + drone_information.mac_address + '</td>');*/
+                                settings.url = 'https://web-ims.thomasmore.be/datadistribution/API/2.0/files/' + response_2[y]['id'] + '?format=json';
+                                $.ajax(settings).done(function (file_information) {
+                                    $("#information").append('<tr>' +
+                                            '<td>' + drone_information.name + '</td>' +
+                                            '<td>' + drone_information.mac_address + '</td>' +
+                                            '<td>' + file_information.id + '</td>' +
+                                            '<td>' + file_information.date_first_record + '</td>' +
+                                            '<td>' + file_information.date_last_record + '</td></tr>');
+                                });
                             }
                             ;
                         });
@@ -52,6 +56,9 @@ and open the template in the editor.
                 <tr>
                     <th>Name</th>
                     <th>MAC Address</th>
+                    <th>File ID</th>
+                    <th>First Record</th>
+                    <th>Last Record</th>
                 </tr>
             </table>
         </div>
